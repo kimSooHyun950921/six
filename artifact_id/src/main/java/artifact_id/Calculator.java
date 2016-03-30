@@ -6,69 +6,69 @@ import java.util.logging.*;
 public class Calculator {
 	String[] raw_type;
 	private int grade, time, line;
-	private static final int silverGrade = 2;
-	private static final int goldGrade = 1;
-	private static final int goldOverTime = 1000;
-	private static final int silverOverTime = 500;
-	private static final double goldOriginalFee = 49.95;
-	private static final double silverOriginalFee = 29.95;
-	private	static final int familyDiscount = 3;
+	private final int SILVERGRADE = 2;
+	private final int GOLDGRADE = 1;
+	private final int GOLDOVERTIME = 1000;
+	private final int SILEVEROVERTIME = 500;
+	private final double GOLDORIGINALFEE = 49.95;
+	private final double SILVERORIGIALFEE = 29.95;
+	private	final int FAMILYDISCOUNT = 3;
 	
 
 	public double money() {
 		if (grade == 1) {// gold
-			return cal_line() + cal_minute();
+			return calLine() + calMinute();
 		} else if (grade == 2) {// silver
-			return cal_line() + cal_minute();
+			return calLine() + calMinute();
 		}
 		return 0;
 	}
 
-	public int add_minute() {
+	public int addMinute() {
 		int addMinute=0;
 		if (grade == 1) { // gold
-			addMinute= (time - this.goldOverTime >= 0 ? time - this.goldOverTime : -1);
+			addMinute= (time - this.GOLDOVERTIME >= 0 ? time - this.GOLDOVERTIME : -1);
 		} else if (grade == 2) { // silver
-			addMinute =(time - this.silverOverTime >= 0 ? time - this.silverOverTime : -1);
+			addMinute =(time - this.SILEVEROVERTIME >= 0 ? time - this.SILEVEROVERTIME : -1);
 		} 
 		return addMinute;
 	}
 
-	public double cal_minute() {
-		if (add_minute() == -1 && grade == goldGrade) // gold, 珥덇낵�븯吏� �븡�쓬
-			return this.goldOriginalFee;
-		else if (add_minute() == -1 && grade == silverGrade) // silver, 珥덇낵�븯吏� �븡�쓬
-			return this.silverOriginalFee;
-		else if (grade == goldGrade) { // gold
-			return this.goldOriginalFee + add_minute() * 0.45;
-		} else if (grade == silverGrade) {
-			return this.silverOriginalFee + add_minute() * 0.54;
+	public double calMinute() {
+		if (addMinute() == -1 && grade == this.GOLDGRADE) // gold, 珥덇낵�븯吏� �븡�쓬
+			return this.GOLDORIGINALFEE;
+		else if (addMinute() == -1 && grade == this.SILVERGRADE) // silver, 珥덇낵�븯吏� �븡�쓬
+			return this.SILVERORIGIALFEE;
+		else if (grade == this.GOLDGRADE) { // gold
+			return this.GOLDORIGINALFEE + addMinute() * 0.45;
+		} else if (grade == this.SILVERGRADE) {
+			return this.SILVERORIGIALFEE + addMinute() * 0.54;
 		} else {
 			return -1;
 		}
 	}
 
-	public int add_line() {
-		if (line - this.familyDiscount < 0) {
+	public int addLine() {
+		if (line - this.FAMILYDISCOUNT < 0) {
 			return -1;
 		} else {
-			return line - this.familyDiscount;
+			return line - this.FAMILYDISCOUNT;
 		}
 	}
 
-	public double cal_line() {
+	public double calLine() {
 		if (line == 1) {
 			return 0;
-		} else if (add_line() < 0 && grade == this.goldGrade) { // gold 洹몃깷 異붽��슂湲�
+		} else if (addLine() < 0 && grade == this.GOLDGRADE) { // gold 洹몃깷 異붽��슂湲�
 			return 14.5 * (line - 1);
-		} else if (add_line() < 0 && grade == this.silverGrade) { // silver 洹몃깷 異붽��슂湲�
+		} else if (addLine() < 0 && grade == this.SILVERGRADE) { // silver 洹몃깷 異붽��슂湲�
 			return 21.5 * (line - 1);
 		}
-		if (add_line() >= 0 && grade == this.goldGrade) { // gold & 媛�議깊븷�씤 0
-			return 14.5 * 2 + add_line() * 5;
+		if (addLine() >= 0 && grade == this.GOLDGRADE) { // gold & 媛�議깊븷�씤 0
+			return 14.5 * 2 + addLine() * 5;
 		}
-		if (add_line() >= 0 && grade == this.silverGrade) { // silver & 媛�議깊븷�씤 0
-			return 21.5 * 2 + add_line() * 5;
+		if (addLine() >= 0 && grade == this.SILVERGRADE) { // silver & 媛�議깊븷�씤 0
+			return 21.5 * 2 + addLine() * 5;
 		} else {
 			return -1;
 		}
