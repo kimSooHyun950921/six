@@ -1,10 +1,19 @@
-package artifact_id;
-
+package team01.week04;
 import java.util.Scanner;
+import java.util.logging.*;
+
 
 public class Calculator {
 	String[] raw_type;
-	int grade, time, line;
+	private int grade, time, line;
+	private final int silverGrade = 2;
+	private final int goldGrade = 1;
+	private final int goldOverTime = 1000;
+	private final int silverOverTime = 500;
+	private final double goldOriginalFee = 49.95;
+	private final double silverOriginalFee = 29.95
+	private	final int familyDiscount = 3;
+	
 
 	public double money() {
 		if (grade == 1) {// gold
@@ -16,49 +25,49 @@ public class Calculator {
 	}
 
 	public int add_minute() {
+		int addMinute=0;
 		if (grade == 1) { // gold
-			return (time - 1000 >= 0 ? time - 1000 : -1);
+			addMinute= (time - this.goldOverTime >= 0 ? time - this.goldOverTime : -1);
 		} else if (grade == 2) { // silver
-			return (time - 500 >= 0 ? time - 500 : -1);
-		} else {
-			return -100;
-		}
+			addMinute =(time - this.silverOverTime >= 0 ? time - this.silverOverTime : -1);
+		} 
+		return addMinute;
 	}
 
 	public double cal_minute() {
-		if (add_minute() == -1 && grade == 1) // gold, ÃÊ°úÇÏÁö ¾ÊÀ½
-			return 49.95;
-		else if (add_minute() == -1 && grade == 2) // silver, ÃÊ°úÇÏÁö ¾ÊÀ½
-			return 29.95;
-		else if (grade == 1) { // gold
-			return 49.95 + add_minute() * 0.45;
-		} else if (grade == 2) {
-			return 29.95 + add_minute() * 0.54;
+		if (add_minute() == -1 && grade == goldGrade) // gold, ç¥ë‡ë‚µï¿½ë¸¯ï§ï¿½ ï¿½ë¸¡ï¿½ì“¬
+			return this.goldOriginalFee;
+		else if (add_minute() == -1 && grade == silverGrade) // silver, ç¥ë‡ë‚µï¿½ë¸¯ï§ï¿½ ï¿½ë¸¡ï¿½ì“¬
+			return this.silverOriginalFee;
+		else if (grade == goldGrade) { // gold
+			return this.goldOriginalFee + add_minute() * 0.45;
+		} else if (grade == silverGrade) {
+			return this.silverOriginalFee + add_minute() * 0.54;
 		} else {
 			return -1;
 		}
 	}
 
 	public int add_line() {
-		if (line - 3 < 0) {
+		if (line - this.familyDiscount < 0) {
 			return -1;
 		} else {
-			return line - 3;
+			return line - this.familyDiscount;
 		}
 	}
 
 	public double cal_line() {
 		if (line == 1) {
 			return 0;
-		} else if (add_line() < 0 && grade == 1) { // gold ±×³É Ãß°¡¿ä±İ
+		} else if (add_line() < 0 && grade == this.goldGrade) { // gold æ´¹ëªƒê¹· ç•°ë¶½ï¿½ï¿½ìŠ‚æ¹²ï¿½
 			return 14.5 * (line - 1);
-		} else if (add_line() < 0 && grade == 2) { // silver ±×³É Ãß°¡¿ä±İ
+		} else if (add_line() < 0 && grade == this.silverGrade) { // silver æ´¹ëªƒê¹· ç•°ë¶½ï¿½ï¿½ìŠ‚æ¹²ï¿½
 			return 21.5 * (line - 1);
 		}
-		if (add_line() >= 0 && grade == 1) { // gold & °¡Á·ÇÒÀÎ 0
+		if (add_line() >= 0 && grade == this.goldGrade) { // gold & åª›ï¿½è­°ê¹Šë¸·ï¿½ì”¤ 0
 			return 14.5 * 2 + add_line() * 5;
 		}
-		if (add_line() >= 0 && grade == 2) { // silver & °¡Á·ÇÒÀÎ 0
+		if (add_line() >= 0 && grade == this.silverGrade) { // silver & åª›ï¿½è­°ê¹Šë¸·ï¿½ì”¤ 0
 			return 21.5 * 2 + add_line() * 5;
 		} else {
 			return -1;
@@ -67,10 +76,10 @@ public class Calculator {
 
 	public String result() {
 		if (money() == 0)
-			return "Àß¸øµÈ °ªÀ» ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.";
+			return "ï¿½ì˜’ï§ì‚³ë§‚ åª›ë¯ªì“£ ï¿½ì—¯ï¿½ì °ï¿½ë¸¯ï¿½ë€²ï¿½ë’¿ï¿½ë•²ï¿½ë–.";
 		else {
 			String str = String.format("%.2f", money());
-			return "±İ¾×Àº $" + str + " ÀÔ´Ï´Ù.";
+			return "æ¹²ë‰ë¸¸ï¿½ï¿½ $" + str + " ï¿½ì—¯ï¿½ë•²ï¿½ë–.";
 		}
 	}
 
@@ -83,14 +92,14 @@ public class Calculator {
 			Scanner linesc = new Scanner(System.in);
 			Scanner yn = new Scanner(System.in);
 			String question;
-			System.out.print("µî±ŞÀ» ÀÔ·ÂÇÏ¼¼¿ä : Gold(1), Silver(2) : ");
+			System.out.print("ë“±ê¸‰ì„ ì…ë ¥í•˜ì„¸ìš”: Gold(1), Silver(2) : ");
 			cal.grade = gradesc.nextInt();
-			System.out.print("ÅëÈ­ ½Ã°£À» Àû¾îÁÖ¼¼¿ä(ºĞ) : ");
+			System.out.print("í†µí™”ì‹œê°„ì„ ì ì–´ì£¼ì„¸ìš”(ë¶„) : ");
 			cal.time = timesc.nextInt();
-			System.out.print("È¸¼± °³¼ö¸¦ Àû¾îÁÖ¼¼¿ä : ");
+			System.out.print("íšŒì„  ê°œìˆ˜ë¥¼ ì ì–´ì£¼ì„¸ìš” : ");
 			cal.line = linesc.nextInt();
 			System.out.println(cal.result());
-			System.out.print("°è¼Ó ÁøÇàÇÏ½Ã°Ú½À´Ï±î?(y/n) : ");
+			System.out.print("ê³„ì† ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(y/n) : ");
 			question = yn.next();
 			if (question.equals("n")) {
 				break;
