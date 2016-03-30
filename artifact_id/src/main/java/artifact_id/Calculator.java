@@ -6,13 +6,13 @@ import java.util.logging.*;
 public class Calculator {
 	String[] raw_type;
 	private int grade, time, line;
-	private final int silverGrade = 2;
-	private final int goldGrade = 1;
-	private final int goldOverTime = 1000;
-	private final int silverOverTime = 500;
-	private final double goldOriginalFee = 49.95;
-	private final double silverOriginalFee = 29.95;
-	private	final int familyDiscount = 3;
+	private static final int silverGrade = 2;
+	private static final int goldGrade = 1;
+	private static final int goldOverTime = 1000;
+	private static final int silverOverTime = 500;
+	private static final double goldOriginalFee = 49.95;
+	private static final double silverOriginalFee = 29.95;
+	private	static final int familyDiscount = 3;
 	
 
 	public double money() {
