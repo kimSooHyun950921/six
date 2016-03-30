@@ -11,7 +11,7 @@ public class Calculator {
 	private final int goldOverTime = 1000;
 	private final int silverOverTime = 500;
 	private final double goldOriginalFee = 49.95;
-	private final double silverOriginalFee = 29.95
+	private final double silverOriginalFee = 29.95;
 	private	final int familyDiscount = 3;
 	
 
